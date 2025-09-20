@@ -40,24 +40,23 @@
       </div>
     </div>
   </div>
+
+  <!-- JS scripts -->
   <script src="assets/js/005.js?v=000"></script>
   <script src="/assets/js/004.js?v=000"></script>
   <script src="./assets/mathematics/bundle.js?v=2025-04-15"></script>
   <script src="./assets/mathematics/config.js?v=2025-04-15"></script>
   <script src="assets/js/003.js?v=000"></script>
   <script src="/assets/js/001.js?v=001"></script>
-  <!-- DO NOT REMOVE-->
+
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKJQ5QHQTJ"></script>
   <script>
     window.dataLayer = window.dataLayer || []
-    function gtag() {
-      dataLayer.push(arguments)
-    }
+    function gtag() { dataLayer.push(arguments) }
     gtag("js", new Date())
-
     gtag("config", "G-WKJQ5QHQTJ")
   </script>
-  <!-- DO NOT REMOVE-->
 
   <!-- PWA: Register Service Worker -->
   <script>
@@ -67,6 +66,37 @@
         .catch(e => console.error('Service Worker registration failed:', e));
     }
   </script>
-</body>
 
+  <!-- PWA: Floating Install App Button -->
+  <script>
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+
+      const installBtn = document.createElement('button');
+      installBtn.textContent = 'Install App';
+      installBtn.style.position = 'fixed';
+      installBtn.style.bottom = '20px';
+      installBtn.style.right = '20px';
+      installBtn.style.padding = '10px 20px';
+      installBtn.style.background = '#770000';
+      installBtn.style.color = '#f0d0d0';
+      installBtn.style.border = 'none';
+      installBtn.style.borderRadius = '5px';
+      installBtn.style.cursor = 'pointer';
+      installBtn.style.zIndex = '9999';
+      document.body.appendChild(installBtn);
+
+      installBtn.addEventListener('click', () => {
+        installBtn.remove();
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          console.log('User choice:', choiceResult.outcome);
+          deferredPrompt = null;
+        });
+      });
+    });
+  </script>
+</body>
 </html>
