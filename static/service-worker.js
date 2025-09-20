@@ -1,19 +1,39 @@
-const CACHE_NAME = 'interstellar-cache-v1';
+const CACHE_NAME = 'interstellar-cache-v2';
 const CACHE_ASSETS = [
   '/',
   '/index.html',
-  '/styles.css',
-  '/main.js',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png'
-  // Add any other essential files here
+
+  /* CSS */
+  '/assets/css/global.css',
+  '/assets/css/h.css',
+  '/assets/css/nav.css',
+
+  /* JS */
+  '/assets/js/001.js',
+  '/assets/js/003.js',
+  '/assets/js/004.js',
+  '/assets/js/005.js',
+  '/assets/mathematics/bundle.js',
+  '/assets/mathematics/config.js',
+
+  /* Manifest */
+  '/site.webmanifest',
+
+  /* Icons */
+  '/android-chrome-192x192.png',
+  '/android-chrome-512x512.png',
+  '/apple-touch-icon.png',
+  '/favicon-16x16.png',
+  '/favicon-32x32.png',
+  '/favicon.ico',
+  '/favicon.png'
 ];
 
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(CACHE_ASSETS))
+      .catch(err => console.error('Cache add failed:', err))
   );
   self.skipWaiting();
 });
